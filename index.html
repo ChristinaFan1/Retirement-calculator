@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <h1>How Much Do I Need to Retire?</h1>
+    <p class="subtitle">Plan your retirement with confidence.</p>
+
+    <h2>Your Retirement Goals</h2>
+    <label for="currentAge">Current Age</label>
+    <input type="number" id="currentAge" value="46">
+   
+    <label for="retirementAge">Retirement Age</label>
+    <input type="number" id="retirementAge" value="65">
+    
+    <label for="lifeExpectancy">Life Expectancy</label>
+    <input type="number" id="lifeExpectancy" value="90">
+    
+    <label for="annualIncome">Desired Annual Retirement Income ($)</label>
+    <input type="number" id="annualIncome" value="60000">
+    <div class="income-note">
+        <span class="info-icon" aria-hidden="true">ⓘ</span>
+        <span>
+            Enter your desired annual retirement income in today's dollars.
+            We will adjust this amount for inflation each year until you retire,
+            so your retirement income maintains the same purchasing power.
+        </span>
+    </div>
+       
+<details class="assumptions">
+    <summary>Investment & Inflation Assumptions</summary>
+
+    <div class="assumption-field">
+        <label for="investmentReturn">
+            Annual Investment Return (After Tax & Fees)
+        </label>
+        <div class="slider-row">
+            <input type="range" id="investmentReturn"
+                   min="3" max="12" step="1" value="7">
+            <output id="returnValue" for="investmentReturn">7%</output>
+        </div>
+        <small>Estimated annual return. Not guaranteed.</small>
+    </div>
+
+    <div class="assumption-field">
+        <label for="inflationRate">
+            Annual Inflation Rate
+        </label>
+        <div class="slider-row">
+            <input type="range" id="inflationRate"
+                   min="0" max="8" step="0.5" value="2.5">
+            <output id="inflationValue" for="inflationRate">2.5%</output>
+        </div>
+    </div>
+</details>
+
+<div class="retirement-strategy">
+    <h2>Retirement Options</h2>
+
+    <label class="strategy-option">
+        <input type="radio" name="strategy"
+               value="drawdown" checked>
+        <span>
+            <strong>Draw Down Capital</strong>
+            <small>
+                Use investment earnings and gradually withdraw
+                your savings throughout retirement.
+            </small>
+        </span>
+    </label>
+
+    <label class="strategy-option">
+        <input type="radio" name="strategy"
+               value="preserve">
+        <span>
+            <strong>Preserve Capital</strong>
+            <small>
+                Fund retirement income from investment earnings
+                while maintaining your original capital.
+            </small>
+        </span>
+    </label>
+
+    <p class="strategy-note">
+        <span class="info-icon" aria-hidden="true">ⓘ</span>
+        <span>
+            Preserve Capital maintains your original savings
+            in nominal dollars, not inflation-adjusted dollars.
+            Both strategies assume constant annual returns.
+        </span>
+    </p>
+</div>
+
+    <button type="button" onclick="calculateRetirement()">
+    Calculate My Retirement Savings
+</button>
+
+
+<section id="resultsPanel" class="results-panel" hidden>
+    <p class="result-label">YOUR RETIREMENT SAVINGS TARGET</p>
+
+    <h2 id="result" aria-live="polite"></h2>
+
+    <p id="resultAge" class="result-subtitle"></p>
+
+    <div class="result-grid">
+        <div>
+            <small>Years until retirement</small>
+            <strong id="yearsUntil"></strong>
+        </div>
+        <div>
+            <small>Years in retirement</small>
+            <strong id="yearsRetired"></strong>
+        </div>
+        <div>
+            <small>Investment return</small>
+            <strong id="displayReturn"></strong>
+        </div>
+        <div>
+            <small>Inflation rate</small>
+            <strong id="displayInflation"></strong>
+        </div>
+        <div>
+            <small>Retirement strategy</small>
+            <strong id="displayStrategy"></strong>
+        </div>
+    </div>
+
+    <p class="disclaimer">
+        <span class="info-icon" aria-hidden="true">ⓘ</span>
+        This estimate excludes existing savings and Age Pension.
+        It assumes consistent annual investment returns after
+        tax and fees. Actual investment returns may vary.
+    </p>
+    
+<div class="chart-section">
+    <h3>Projected Retirement Savings</h3>
+    <p class="chart-description">
+        Compare your projected savings balance
+        throughout retirement.
+    </p>
+
+    <svg id="retirementChart"
+         viewBox="0 0 640 330"
+         role="img"
+         aria-label="Retirement savings balance comparison chart">
+    </svg>
+    
+<div id="chartTooltip" class="chart-tooltip" hidden>
+    <strong id="tooltipAge"></strong>
+
+    <div class="tooltip-grid">
+        <span>Annual withdrawal</span>
+        <strong id="tooltipWithdrawal"></strong>
+
+        <span>Investment earnings</span>
+        <strong id="tooltipEarnings"></strong>
+
+        <span>Remaining balance</span>
+        <strong id="tooltipBalance"></strong>
+    </div>
+</div>
+
+
+    <div class="chart-options">
+        <label class="chart-radio">
+            <input type="radio"
+                   name="chartStrategy"
+                   value="drawdown" checked>
+            Draw Down Capital
+        </label>
+
+        <label class="chart-radio">
+            <input type="radio"
+                   name="chartStrategy"
+                   value="preserve">
+            Preserve Capital
+        </label>
+    </div>
+
+    <div class="chart-summary">
+        <div>
+            <small>Starting savings at retirement</small>
+            <strong id="chartStarting"></strong>
+        </div>
+        <div>
+            <small>Remaining savings at life expectancy</small>
+            <strong id="chartEnding"></strong>
+        </div>
+    </div>
+
+    <p class="chart-disclaimer">
+        <span class="info-icon" aria-hidden="true">ⓘ</span>
+        Projections assume constant annual returns,
+        annual withdrawals at the beginning of each year,
+        and no unexpected investment losses.
+    </p>
+</div>
+</section>
+
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
