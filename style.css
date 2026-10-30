@@ -587,4 +587,11 @@ body {
         font-size: 18px;
     }
 }
-
+.assumptions-hint {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  margin-top: 4px;
+  margin-left: 16px; /* Align with heading text */
+}
